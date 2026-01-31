@@ -5,7 +5,7 @@
 ### *Empowering Creators. Amplifying Brands.*
 
 [![Next.js](https://img.shields.io/badge/Next.js_14+-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
 [![Razorpay](https://img.shields.io/badge/Razorpay-0C2451?style=for-the-badge&logo=razorpay&logoColor=white)](https://razorpay.com/)
@@ -113,7 +113,7 @@ UGCHub provides:
 ### Frontend
 
 ![Next.js](https://img.shields.io/badge/Next.js_14+-000000?style=for-the-badge&logo=next.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![React](https://img.shields.io/badge/React_18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
@@ -147,12 +147,12 @@ UGCHub provides:
 | Technology | Purpose | Why? |
 |:---|:---|:---|
 | **Next.js 14+** | React Framework | Server Components, App Router, API Routes |
-| **TypeScript** | Type Safety | Catch errors early, better DX |
+| **JavaScript (ES6+)** | Programming Language | Modern syntax, flexible, industry standard |
 | **Tailwind CSS** | Styling | Utility-first, rapid development |
 | **shadcn/ui** | Component Library | Accessible, customizable components |
 | **Framer Motion** | Animations | Smooth micro-interactions |
 | **React Hook Form** | Form Management | Performance, validation |
-| **Zod** | Schema Validation | Type-safe form validation |
+| **Zod** | Schema Validation | Runtime type checking and validation |
 | **Lucide React** | Icons | Modern, consistent iconography |
 
 ### Backend Technologies
@@ -493,16 +493,16 @@ ugchub/
 │   │   └── onboarding/
 │   ├── 📊 dashboard/
 │   │   ├── brand/
-│   │   │   ├── page.tsx             # Brand dashboard
+│   │   │   ├── page.js              # Brand dashboard
 │   │   │   └── gigs/
 │   │   │       ├── new/             # Create gig
 │   │   │       └── [id]/            # Gig details
 │   │   └── creator/
-│   │       ├── page.tsx             # Creator dashboard
+│   │       ├── page.js              # Creator dashboard
 │   │       ├── earnings/
 │   │       └── portfolio/
 │   ├── 🛍️ marketplace/
-│   │   ├── page.tsx                 # Gig marketplace
+│   │   ├── page.js                  # Gig marketplace
 │   │   └── [id]/                    # Gig detail page
 │   ├── ⚡ api/
 │   │   ├── auth/[...nextauth]/      # NextAuth config
@@ -510,25 +510,25 @@ ugchub/
 │   │   ├── submissions/
 │   │   ├── payments/
 │   │   └── upload/
-│   ├── layout.tsx                   # Root layout
-│   └── page.tsx                     # Landing page
+│   ├── layout.js                    # Root layout
+│   └── page.js                      # Landing page
 ├── 🎨 components/
 │   ├── ui/                          # shadcn components
-│   ├── gig-card.tsx
-│   ├── submission-card.tsx
-│   ├── stats-card.tsx
-│   ├── navbar.tsx
-│   └── file-upload.tsx
+│   ├── gig-card.jsx
+│   ├── submission-card.jsx
+│   ├── stats-card.jsx
+│   ├── navbar.jsx
+│   └── file-upload.jsx
 ├── 📚 lib/
-│   ├── supabase.ts                  # Supabase client
-│   ├── razorpay.ts                  # Razorpay utilities
-│   ├── r2.ts                        # Cloudflare R2 client
-│   └── validations.ts               # Zod schemas
+│   ├── supabase.js                  # Supabase client
+│   ├── razorpay.js                  # Razorpay utilities
+│   ├── r2.js                        # Cloudflare R2 client
+│   └── validations.js               # Zod schemas
 ├── 📝 types/
-│   └── index.ts                     # TypeScript types
+│   └── index.js                     # JavaScript types/constants
 ├── 🖼️ public/                       # Static assets
-├── middleware.ts                    # Auth middleware
-├── tailwind.config.ts
+├── middleware.js                    # Auth middleware
+├── tailwind.config.js
 ├── next.config.js
 └── package.json
 ```
@@ -697,6 +697,11 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
 
 ## 🙏 Acknowledgments
 
@@ -708,6 +713,21 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
+## 📧 Contact
+
+<div align="center">
+
+**Project Maintainer:** [Your Name]
+
+[![GitHub](https://img.shields.io/badge/GitHub-@yourusername-181717?style=for-the-badge&logo=github)](https://github.com/yourusername)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Your_Name-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/yourprofile)
+[![Email](https://img.shields.io/badge/Email-your.email@example.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your.email@example.com)
+
+</div>
+
+---
+
+<div align="center">
 
 ### 💖 Built with Love for the Creator Economy
 
