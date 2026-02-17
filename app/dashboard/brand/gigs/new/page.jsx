@@ -38,7 +38,7 @@ export default function NewGigPage() {
       const payload = {
         ...data,
         requirements: {
-          instructions: data.guidelines
+          guidelines: data.guidelines
         }
       };
 

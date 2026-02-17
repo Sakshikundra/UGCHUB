@@ -1,5 +1,7 @@
 import { Inter } from 'next/font/google';
+import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -9,15 +11,15 @@ export const metadata = {
   keywords: 'UGC, user generated content, marketplace, creators, brands, influencer marketing',
 };
 
-import { Toaster } from "@/components/ui/toaster";
-
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
-      <body className={inter.className}>
-        {children}
-        <Toaster />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="dark">
+        <body className={inter.className}>
+          {children}
+          <Toaster />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

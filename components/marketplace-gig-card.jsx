@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { formatCurrency, formatDate, getInitials } from '@/lib/utils';
-import { Clock, DollarSign, MapPin } from 'lucide-react';
+import { Clock, DollarSign, MapPin, CheckCircle2 } from 'lucide-react';
 
 export function MarketplaceGigCard({ gig }) {
   return (
@@ -23,9 +23,7 @@ export function MarketplaceGigCard({ gig }) {
               </h4>
               <div className="flex items-center gap-2 text-xs text-gray-500">
                 {gig.brand_profiles?.verified && (
-                  <Badge variant="secondary" className="h-4 px-1 text-[10px] bg-blue-500/10 text-blue-400 border-0">
-                    Verified
-                  </Badge>
+                  <CheckCircle2 className="h-4 w-4 text-blue-500 fill-blue-500/10" />
                 )}
                 <span>{gig.brand_profiles?.industry}</span>
               </div>

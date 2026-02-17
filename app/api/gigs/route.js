@@ -63,13 +63,23 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Invalid input', details: result.error.errors }, { status: 400 });
     }
 
+    const { 
+      contentType, 
+      slotsAvailable, 
+      referenceFiles, 
+      ...gigData 
+    } = result.data;
+
     const supabase = getSupabaseAdmin();
     const { data, error } = await supabase
       .from('gigs')
       .insert({
-        ...result.data,
+        ...gigData,
+        content_type: contentType,
+        slots_available: slotsAvailable,
+        reference_files: referenceFiles, // assuming standard naming convention
         brand_id: session.user.id,
-        status: 'open', // Should technically be 'draft' or 'pending_payment' if using escrow
+        status: 'open',
       })
       .select()
       .single();
@@ -79,6 +89,13 @@ export async function POST(request) {
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     console.error('Error creating gig:', error);
+    // Log extended details for debugging
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint
+    });
     return NextResponse.json({ 
       error: 'Failed to create gig', 
       details: error.message || error.code || error.toString(),

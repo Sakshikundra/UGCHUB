@@ -52,11 +52,12 @@ export default async function CreatorDashboard() {
           icon="activity"
           description="Submissions awaiting approval"
         />
+
         <StatsCard
-          title="Completed Jobs"
-          value={stats.completedJobs}
-          icon="briefcase"
-          description="Successfully completed gigs"
+          title="My Rating"
+          value={stats.rating ? Number(stats.rating).toFixed(1) : "N/A"}
+          icon="star"
+          description="Average from brands"
         />
       </div>
 

@@ -12,7 +12,7 @@ import {
   LogOut,
   Sparkles 
 } from 'lucide-react';
-import { signOut } from 'next-auth/react';
+import { useClerk } from '@clerk/nextjs';
 
 const brandLinks = [
   { href: '/dashboard/brand', label: 'Overview', icon: LayoutDashboard },
@@ -32,6 +32,7 @@ import { DollarSign } from 'lucide-react';
 
 export function DashboardSidebar({ userRole }) {
   const pathname = usePathname();
+  const { signOut } = useClerk();
   const links = userRole === 'brand' ? brandLinks : creatorLinks;
 
   return (
@@ -67,7 +68,7 @@ export function DashboardSidebar({ userRole }) {
         <Button 
           variant="ghost" 
           className="w-full justify-start gap-3 text-red-400 hover:text-red-300 hover:bg-red-500/10"
-          onClick={() => signOut({ callbackUrl: '/' })}
+          onClick={() => signOut({ redirectUrl: '/' })}
         >
           <LogOut className="h-4 w-4" />
           Sign Out

@@ -8,13 +8,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { getInitials, formatDate } from '@/lib/utils';
-import { ExternalLink, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { ExternalLink, CheckCircle, XCircle, Loader2, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { StarRating } from './ui/star-rating';
 
 export function SubmissionReviewCard({ submission }) {
   const [isReviewing, setIsReviewing] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [action, setAction] = useState(null); // 'approve' | 'reject'
+  const [rating, setRating] = useState(0);
+  const [showRatingInput, setShowRatingInput] = useState(false);
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   const router = useRouter();
 
   const handleReview = async () => {
@@ -36,6 +40,35 @@ export function SubmissionReviewCard({ submission }) {
     } finally {
       setIsReviewing(false);
       setAction(null);
+    }
+  };
+
+  const handleSubmitReview = async () => {
+    setIsSubmittingReview(true);
+    try {
+        const response = await fetch('/api/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                gigId: submission.gig_id,
+                creatorId: submission.creator_id,
+                rating,
+                comment: '' // Optional for now
+            }),
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.error || 'Failed to submit review');
+        }
+
+        router.refresh(); // Refresh to show the new review state
+        setShowRatingInput(false);
+    } catch (error) {
+        console.error('Review Error:', error);
+        // Could accept a toast prop to show error
+    } finally {
+        setIsSubmittingReview(false);
     }
   };
 
@@ -156,8 +189,59 @@ export function SubmissionReviewCard({ submission }) {
             </Dialog>
           </div>
         ) : (
-          <div className="w-full text-center text-sm text-gray-500">
-             {submission.status === 'approved' ? 'Payment released' : 'Feedback sent'}
+          <div className="w-full flex flex-col gap-4">
+             <div className="text-center text-sm text-gray-500">
+                {submission.status === 'approved' ? 'Payment released' : 'Feedback sent'}
+             </div>
+
+             {/* Rating UI for Approved Submissions */}
+             {submission.status === 'approved' && (
+                <div className="border-t border-white/5 pt-4">
+                   {submission.review ? (
+                      <div className="flex flex-col items-center gap-2">
+                         <span className="text-xs font-medium text-gray-400">You rated this creator</span>
+                         <StarRating rating={submission.review.rating} readOnly={true} showValue={true} />
+                      </div>
+                   ) : (
+                      <div className="flex flex-col items-center gap-3">
+                         {!showRatingInput ? (
+                             <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="border-purple-500/30 text-purple-400 hover:bg-purple-500/10"
+                                onClick={() => setShowRatingInput(true)}
+                             >
+                                <Star className="mr-2 h-3 w-3" />
+                                Rate Creator
+                             </Button>
+                         ) : (
+                             <div className="flex flex-col items-center gap-3 w-full bg-white/5 p-4 rounded-lg animate-in fade-in slide-in-from-top-2">
+                                <span className="text-sm text-gray-300">Rate your experience</span>
+                                <StarRating rating={rating} readOnly={false} onChange={setRating} size="h-6 w-6" />
+                                <div className="flex gap-2 w-full mt-2">
+                                   <Button 
+                                      variant="ghost" 
+                                      size="sm" 
+                                      className="flex-1"
+                                      onClick={() => setShowRatingInput(false)}
+                                   >
+                                      Cancel
+                                   </Button>
+                                   <Button 
+                                      size="sm" 
+                                      className="flex-1 gradient-purple"
+                                      onClick={handleSubmitReview}
+                                      disabled={isSubmittingReview || rating === 0}
+                                   >
+                                      {isSubmittingReview ? <Loader2 className="animate-spin h-3 w-3" /> : 'Submit Review'}
+                                   </Button>
+                                </div>
+                             </div>
+                         )}
+                      </div>
+                   )}
+                </div>
+             )}
           </div>
         )}
       </CardFooter>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useUser } from '@clerk/nextjs';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
@@ -14,12 +14,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function OnboardingPage() {
-  const { data: session } = useSession();
+  const { user, isLoaded } = useUser();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   
-  const [selectedRole, setSelectedRole] = useState(session?.user?.role || 'creator');
-  const role = session?.user?.role || selectedRole;
+  const [selectedRole, setSelectedRole] = useState('creator');
+  const role = selectedRole;
   const isBrand = role === 'brand';
   
   const schema = isBrand ? brandProfileSchema : creatorProfileSchema;
@@ -49,7 +49,7 @@ export default function OnboardingPage() {
     }
   };
 
-  if (!session) return null;
+  if (!isLoaded || !user) return null;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 py-12 px-4">
@@ -65,7 +65,7 @@ export default function OnboardingPage() {
           </CardHeader>
           <CardContent>
             {/* Role Selection for OAuth Users who haven't picked a role yet */}
-            {!session?.user?.role && (
+            {(
                 <div className="mb-8 p-4 bg-black/40 rounded-lg border border-gray-800">
                     <Label className="text-white mb-3 block">I am a:</Label>
                     <div className="grid grid-cols-2 gap-4">
